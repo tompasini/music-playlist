@@ -58,7 +58,9 @@ class SongsService {
   async addSong(id) {
     let addedSong = ProxyState.songs.find(s => s._id == id)
     let res = await sandBoxApi.post("", addedSong)
-    this.getMySongs()
+    // debugger
+    // this.getMySongs()
+    ProxyState.playlist = [...ProxyState.playlist, addedSong]
 
 
 
@@ -73,7 +75,8 @@ class SongsService {
    */
   async removeSong(id) {
     let res = await sandBoxApi.delete("" + id)
-    this.getMySongs()
+    // this.getMySongs()
+    ProxyState.playlist = ProxyState.playlist.filter(s => s._id != id)
     ProxyState.mySong = null
     //TODO Send the id to be deleted from the server then update the store
   }
